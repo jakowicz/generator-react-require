@@ -1,0 +1,8 @@
+{
+    "preset": "jquery",
+    "requireMultipleVarDecl": null,           // Remove jQuery preset - Rule: require multiple vars to be set under 1 var statement
+    "requireLineFeedAtFileEnd": null,         // Remove jQuery preset - Rule: blank line required at end of files
+    "requireSpacesInsideArrayBrackets": null, // Remove jQuery preset - Rule: require space at the start and end of square brackets
+
+    "disallowMultipleVarDecl": true           // Disallow use of one var statement for multiple variables
+}

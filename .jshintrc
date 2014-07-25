@@ -1,0 +1,15 @@
+{
+    "indent"        : 4,    // Space indentation required
+    "maxparams"     : 6,    // Maximum allowed parameters
+    "maxdepth"      : 3,    // Maximum imbedded control structures
+    "maxlen"        : 120,  // Max characters per line
+    "maxerr"        : 50,   // Maximum JSHint warnings to display
+
+    "browser"       : true,  // This option let JSHint know about some pre-defined global variables. e.g. window, document.
+    "jquery"        : true,  // This option defines globals exposed by the jQuery JavaScript library.
+
+    "globals" : {
+        "define"    : false, // RequireJS
+        "requirejs" : false, // RequireJS
+    }
+}
