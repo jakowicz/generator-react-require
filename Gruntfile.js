@@ -27,14 +27,14 @@ module.exports = function(grunt) {
         },
         watch: {
             js: {
-                files: ["<%= pathConfig.rootDir %>preprocess/js/**",],
+                files: ["<%= pathConfig.rootDir %>preprocess/js/**"],
                 tasks: ["copy"],
                 options: {
                     spawn: false
                 }
             },
             jsx: {
-                files: ["<%= pathConfig.rootDir %>preprocess/jsx/**",],
+                files: ["<%= pathConfig.rootDir %>preprocess/jsx/**"],
                 tasks: ["react"],
                 options: {
                     spawn: false
@@ -50,8 +50,8 @@ module.exports = function(grunt) {
                 expand: true,
                 cwd: "<%= pathConfig.rootDir %>preprocess/js",
                 src: "**/**",
-                dest: "<%= pathConfig.webDir %>js",
-            },
+                dest: "<%= pathConfig.webDir %>js"
+            }
         },
         compass: {
             dist: {
@@ -79,18 +79,18 @@ module.exports = function(grunt) {
                 "bower.json",
                 "Gruntfile.js",
                 "package.json",
-                "preprocess/js/**",
+                "preprocess/js/**"
             ]
         },
         react: {
-            dynamic_mappings: {
+            dynamicMappings: {
                 files: [
                     {
                         expand: true,
                         cwd: "<%= pathConfig.rootDir %>preprocess/jsx",
                         src: ["*.jsx"],
-                        dest: '<%= pathConfig.webDir %>js/pages',
-                        ext: '.js'
+                        dest: "<%= pathConfig.webDir %>js/pages",
+                        ext: ".js"
                     }
                 ]
             }
