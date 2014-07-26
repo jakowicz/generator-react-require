@@ -10,9 +10,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="lib/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
-    
-    <script type="text/javascript" src="lib/react/JSXTransformer.js"></script>
-    <script type="text/javascript" data-main="js/index" src="lib/requirejs/require.js"></script>
+    <script type="text/javascript" data-main="js/pages/index" src="lib/requirejs/require.js"></script>
 </head>
 <body>
 
@@ -24,13 +22,15 @@
 
         <div class="row">
             <div class="col-lg-12">
-
-                <div class="input-group">
-                    <input type="text" class="form-control">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Add!</button>
-                    </span>
-                </div>
+    
+                <form action="#">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="todo-description">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Add!</button>
+                        </span>
+                    </div>
+                </form>
             
                 <div id="todo-div"></div>
 

@@ -26,22 +26,37 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            scripts: {
-                files: ["<%= pathConfig.rootDir %>preprocess/js/**"],
+            js: {
+                files: ["<%= pathConfig.rootDir %>preprocess/js/**",],
+                tasks: ["copy"],
+                options: {
+                    spawn: false
+                }
+            },
+            jsx: {
+                files: ["<%= pathConfig.rootDir %>preprocess/jsx/**",],
                 tasks: ["react"],
                 options: {
                     spawn: false
                 }
             },
             css: {
-                files: ["<%= pathConfig.rootDir %>preprocess/sass/*.scss"],
+                files: ["<%= pathConfig.rootDir %>preprocess/scss/**.scss"],
                 tasks: ["compass"]
             }
+        },
+        copy: {
+            js: {
+                expand: true,
+                cwd: "<%= pathConfig.rootDir %>preprocess/js",
+                src: "**/**",
+                dest: "<%= pathConfig.webDir %>js",
+            },
         },
         compass: {
             dist: {
                 options: {
-                    sassDir: "<%= pathConfig.rootDir %>preprocess/sass",
+                    sassDir: "<%= pathConfig.rootDir %>preprocess/scss",
                     cssDir: "<%= pathConfig.webDir %>css",
                     outputStyle: "compressed"
                 }
@@ -72,9 +87,9 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: "<%= pathConfig.rootDir %>preprocess/js",
+                        cwd: "<%= pathConfig.rootDir %>preprocess/jsx",
                         src: ["*.jsx"],
-                        dest: '<%= pathConfig.webDir %>js',
+                        dest: '<%= pathConfig.webDir %>js/pages',
                         ext: '.js'
                     }
                 ]
@@ -83,9 +98,9 @@ module.exports = function(grunt) {
     });
 
     // Tasks
-    grunt.registerTask("default", [ "copy", "compass" ]);
+    grunt.registerTask("default", [ "copy", "compass", "react" ]);
     grunt.registerTask("compress", [ "uglify", "compass" ]);
     grunt.registerTask("sca", [ "jshint", "jscs" ]);
-    grunt.registerTask("build", [ "jshint", "jscs", "uglify", "compass" ]);
+    grunt.registerTask("build", [ "jshint", "jscs", "uglify", "compass", "react", "copy" ]);
 
 };
