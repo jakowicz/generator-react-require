@@ -10,6 +10,9 @@ require(["../main"], function() {
         var SERVER    = "http://127.0.0.1:1337/";
         var JSON_SAVE = SERVER + "save";
         var JSON_PATH = SERVER + "read";
+
+        var $descriptionBox = $("#todo-description");
+        
         /**
          * Create a tble to store the todo list
          */
@@ -25,7 +28,6 @@ require(["../main"], function() {
                     url: JSON_PATH,
                     dataType: 'json',
                     success: function(data) {
-                        //console.log(data);
                         this.setTodoState(data);
                     }.bind(this),
                     error: function(xhr, status, err) {
@@ -46,6 +48,9 @@ require(["../main"], function() {
                     url: JSON_SAVE,
                     type: 'POST',
                     data: { description: newTodoDescription },
+                    success: function() {
+                        $descriptionBox.val("");
+                    }.bind(this),
                     error: function(xhr, status, err) {
                         console.error(err.toString());
                     }.bind(this)
@@ -103,7 +108,7 @@ require(["../main"], function() {
                 var reactThis = this;
                 $(function() {
                     $("form").on("submit", function(e) {
-                        reactThis.handleCommentSubmit($("#todo-description").val());
+                        reactThis.handleCommentSubmit($descriptionBox.val());
                         return false;
                     });
                 });
@@ -135,10 +140,13 @@ require(["../main"], function() {
         var TodoList = React.createClass({
             render: function() {
 
-                var todoNodes = this.props.todoList.map(function(todo) {
-                    return (<TodoRow description={todo.description} />);
-                });
-
+                if (this.props.todoList.length > 0) {
+                    var todoNodes = this.props.todoList.map(function(todo) {
+                        return (<TodoRow description={todo.description} />);
+                    });
+                } else {
+                    var todoNodes = <TodoRow description="There is nothing to do, grab yourself a beer!" />
+                }
                 return ( 
                     <tbody>{todoNodes}</tbody>
                 );

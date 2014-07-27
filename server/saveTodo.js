@@ -23,11 +23,14 @@ app.all('/*', function(req, res, next) {
 app.post("/save", function(req, res) {
     if (typeof req.body.description !== "undefined") {
 
-        jf.readFile(filePath, function(err, obj) {
-            obj.push({ "description": req.body.description });
+        jf.readFile(filePath, function(err, objs) {
+            objs = (objs === null) ? [] : objs;
 
-            jf.writeFile(filePath, obj);
+            objs.push({ "description": req.body.description });
+
+            jf.writeFile(filePath, objs);
         });
+
         res.send("Put your hands in the air");
 
     } else {
