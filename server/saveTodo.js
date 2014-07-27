@@ -4,7 +4,7 @@ var express    = require("express");
 var bodyParser = require('body-parser');
 
 // Config
-var filePath = "/Users/simon/sites/Yeoman-React-Bootstrap-Require/server/json/todo.json";
+var filePath = "json/todo.json";
 
 // Start Express app
 var app      = express();
