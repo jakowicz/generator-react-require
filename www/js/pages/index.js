@@ -7,8 +7,9 @@ require(["../main"], function() {
 
     require(["React", "jquery"], function(React, $) {
 
-        var SERVER = "http://127.0.0.1:1337/";
-
+        var SERVER    = "http://127.0.0.1:1337/";
+        var JSON_SAVE = SERVER + "save";
+        var JSON_PATH = SERVER + "read";
         /**
          * Create a tble to store the todo list
          */
@@ -21,9 +22,10 @@ require(["../main"], function() {
              */
             loadTodoFromServer: function() {
                 $.ajax({
-                    url: this.props.readUrl,
+                    url: JSON_PATH,
                     dataType: 'json',
                     success: function(data) {
+                        //console.log(data);
                         this.setTodoState(data);
                     }.bind(this),
                     error: function(xhr, status, err) {
@@ -41,7 +43,7 @@ require(["../main"], function() {
                 this.addNewTodo(newTodoDescription);
 
                 $.ajax({
-                    url: this.props.writeUrl,
+                    url: JSON_SAVE,
                     type: 'POST',
                     data: { description: newTodoDescription },
                     error: function(xhr, status, err) {
@@ -154,7 +156,7 @@ require(["../main"], function() {
             }
         });
 
-        React.renderComponent(TodoTable({readUrl: "js/server/json/todo.json", writeUrl: SERVER}), document.getElementById('todo-div'));
+        React.renderComponent(TodoTable(null), document.getElementById('todo-div'));
 
     });
 });

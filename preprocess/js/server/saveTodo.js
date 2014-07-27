@@ -25,4 +25,14 @@ app.post("/", function(req, res) {
     }
 });
 
+app.get("/json", function(req, res) {
+
+    jf.readFile(filePath, function(err, obj) {
+        var returnData = obj;
+    });
+
+    return returnData;
+});
+
+
 app.listen(1337);
