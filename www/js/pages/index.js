@@ -7,24 +7,45 @@ require(["../main"], function() {
 
     require(["React", "jquery"], function(React, $) {
 
+        var SERVER = "http://127.0.0.1:1337/";
+
         /**
          * Create a tble to store the todo list
          */
         var TodoTable = React.createClass({displayName: 'TodoTable',
+
+            TODO_LIST_PROP: "todoList",
 
             /**
              * Get all todo descriptions from the server
              */
             loadTodoFromServer: function() {
                 $.ajax({
-                    url: this.props.url,
+                    url: this.props.readUrl,
                     dataType: 'json',
                     success: function(data) {
-                        console.log(data);
-                        this.setState({todoList: data});
+                        this.setTodoState(data);
                     }.bind(this),
                     error: function(xhr, status, err) {
-                        console.error(this.props.url, status, err.toString());
+                        console.error(err.toString());
+                    }.bind(this)
+                });
+            },
+
+            /**
+             * Submit a new todo to the server
+             * @param {String} newTodoDescription
+             */
+            handleCommentSubmit: function(newTodoDescription) {
+                
+                this.addNewTodo(newTodoDescription);
+
+                $.ajax({
+                    url: this.props.writeUrl,
+                    type: 'POST',
+                    data: { description: newTodoDescription },
+                    error: function(xhr, status, err) {
+                        console.error(err.toString());
                     }.bind(this)
                 });
             },
@@ -38,11 +59,21 @@ require(["../main"], function() {
             },
 
             /**
+             * Create an object to set into the "todo" state
+             * @param {Array} data - An array of todo objects
+             */
+            createTodoObject: function(data) {
+                var todoList = {};
+                todoList[this.TODO_LIST_PROP] = data;
+                return todoList;
+            },
+
+            /**
              * Update the state of 'todoList'
              * @param {Array} data - An array of todo objects
              */
             setTodoState: function(data) {
-                this.setState({todoList: data});
+                this.setState(this.createTodoObject(data));
             },
 
             /**
@@ -50,38 +81,16 @@ require(["../main"], function() {
              * @param {String} newTodoDescription
              */
             addNewTodo: function(newTodoDescription) {
-                var todoList = this.getTodoState();
-                var todoList = todoList.concat({ "description" : newTodoDescription });
+                console.log(this.getTodoState());
+                var todoList = this.getTodoState().concat({ "description" : newTodoDescription });
                 this.setTodoState(todoList);
-            },
-
-            /**
-             * Submit a new todo to the server
-             * @param {String} newTodoDescription
-             */
-            handleCommentSubmit: function(newTodoDescription) {
-                
-                this.addNewTodo(newTodoDescription);
-
-                // $.ajax({
-                //     url: this.props.url,
-                //     dataType: 'json',
-                //     type: 'POST',
-                //     data: comment,
-                //     success: function(data) {
-                //         //this.setState({data: data});
-                //     }.bind(this),
-                //     error: function(xhr, status, err) {
-                //         console.error(this.props.url, status, err.toString());
-                //     }.bind(this)
-                // });
             },
 
             /**
              * Set the initial state of teh todo list
              */
             getInitialState: function() {
-              return { todoList: [] };
+                return this.createTodoObject([]);
             },
 
             /**
@@ -94,7 +103,7 @@ require(["../main"], function() {
                     $("form").on("submit", function(e) {
                         reactThis.handleCommentSubmit($("#todo-description").val());
                         return false;
-                    })
+                    });
                 });
 
                 this.loadTodoFromServer();
@@ -105,7 +114,6 @@ require(["../main"], function() {
              * Render the table, each time the state is changed
              */
             render: function() {
-
                 var reactThis = this;
 
                 return (
@@ -140,14 +148,13 @@ require(["../main"], function() {
          */
         var TodoRow = React.createClass({displayName: 'TodoRow',
             render: function() {
-
                 return (   
                     React.DOM.tr(null, React.DOM.td(null, this.props.description))
                 );
             }
         });
 
-        React.renderComponent(TodoTable({url: "js/json/todo.json"}), document.getElementById('todo-div'));
+        React.renderComponent(TodoTable({readUrl: "js/server/json/todo.json", writeUrl: SERVER}), document.getElementById('todo-div'));
 
     });
 });
