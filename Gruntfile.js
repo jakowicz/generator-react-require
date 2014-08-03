@@ -34,7 +34,7 @@ module.exports = function(grunt) {
                 }
             },
             jsx: {
-                files: ["<%= pathConfig.rootDir %>preprocess/jsx/**"],
+                files: ["<%= pathConfig.rootDir %>preprocess/jsx/**/**"],
                 tasks: ["react"],
                 options: {
                     spawn: false
@@ -100,9 +100,9 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: "<%= pathConfig.rootDir %>preprocess/jsx",
-                        src: ["*.jsx"],
-                        dest: "<%= pathConfig.webDir %>js/pages",
+                        cwd: "<%= pathConfig.rootDir %>preprocess/jsx/",
+                        src: ["**/**.jsx"],
+                        dest: "<%= pathConfig.webDir %>js/",
                         ext: ".js"
                     }
                 ]

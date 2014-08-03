@@ -14,7 +14,8 @@ This is a Yeoman generator that can be used to create a simple todo application 
 # Start the Node server
 
 ```Bash
-node /path/to/yoreact/server/server.js;
+cd /path/to/yoreact/server;
+node server.js;
 ```
 
 # How to use

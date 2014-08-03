@@ -5,15 +5,15 @@
 require(["../main"], function() {
     "use strict";
 
-    require(["React", "jquery", "SocketIO", "pages/ErrorBox"], function(React, $, io, ErrorBox) {
+    require(["React", "jquery", "SocketIO", "modules/ErrorBox"], function(React, $, io, ErrorBox) {
 
         var $descriptionBox = $("#todo-description");
 
-        var socket          = io("http://localhost:1337/");
+        var socket = io("http://localhost:1337/");
 
         ErrorBox(socket);
         
-        /** Create a tble to store the todo list */
+        /** Create a table to store the todo list */
         var TodoTable = React.createClass({displayName: 'TodoTable',
 
             TODO_LIST_PROP: "todoList",
