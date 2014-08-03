@@ -1,44 +1,35 @@
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .header {
-  border-bottom: 1px solid #e5e5e5;
-  
-  h3 {
-    padding-bottom: 19px;
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-  }
+    border-bottom: 1px solid #e5e5e5;
+    
+    h3 {
+        padding-bottom: 19px;
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 30px;
+        font-family: sans-serif
+    }
 }
 
 .todo-table {
-  margin-top: 30px;
+    margin-top: 20px;
 }
 
-/* Customize container */
+#error {
+    color: #FF0000;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #F2BFBF;
+    border: 1px solid #FF0000;
+}
+
+
 @media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+    .container {
+        max-width: 730px;
+    }
 }

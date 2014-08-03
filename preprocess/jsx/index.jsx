@@ -5,15 +5,15 @@
 require(["../main"], function() {
     "use strict";
 
-    require(["React", "jquery", "SocketIO"], function(React, $, io) {
-
-        var socket = io("http://localhost:1337/");
+    require(["React", "jquery", "SocketIO", "pages/ErrorBox"], function(React, $, io, ErrorBox) {
 
         var $descriptionBox = $("#todo-description");
+
+        var socket          = io("http://localhost:1337/");
+
+        ErrorBox(socket);
         
-        /**
-         * Create a tble to store the todo list
-         */
+        /** Create a tble to store the todo list */
         var TodoTable = React.createClass({
 
             TODO_LIST_PROP: "todoList",
@@ -76,7 +76,6 @@ require(["../main"], function() {
                 var reactThis = this;
 
                 socket.on("new-todo-list", function(objs) {
-                    console.log(objs);
                     reactThis.setTodoState(objs);
                 });
 
@@ -88,16 +87,16 @@ require(["../main"], function() {
             render: function() {
                 return (
                     <table className="table table-striped todo-table">
-                        <thead><tr><th>Description</th></tr></thead>
+                        <thead>
+                            <tr><th>Description</th></tr>
+                        </thead>
                         <TodoList todoList={this.state.todoList} />
                     </table>
                 );
             }
         });
 
-        /**
-         * Create the todo list tbody data
-         */
+        /** Create the todo list tbody data */
         var TodoList = React.createClass({
             render: function() {
                 if (this.props.todoList.length > 0) {
@@ -113,9 +112,7 @@ require(["../main"], function() {
             }
         });
 
-        /**
-         * Create a new row for the todo list
-         */
+        /** Create a new row for the todo list */
         var TodoRow = React.createClass({
             render: function() {
                 return (   
