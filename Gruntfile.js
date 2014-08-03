@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         watch: {
             js: {
                 files: ["<%= pathConfig.rootDir %>preprocess/js/**/**"],
-                tasks: ["copy:js", "copy:server"],
+                tasks: ["copy:js"],
                 options: {
                     spawn: false
                 }
@@ -36,6 +36,13 @@ module.exports = function(grunt) {
             jsx: {
                 files: ["<%= pathConfig.rootDir %>preprocess/jsx/**"],
                 tasks: ["react"],
+                options: {
+                    spawn: false
+                }
+            },
+            server: {
+                files: ["<%= pathConfig.rootDir %>preprocess/server/**"],
+                tasks: ["copy:server"],
                 options: {
                     spawn: false
                 }
@@ -54,7 +61,7 @@ module.exports = function(grunt) {
             },
             server: {
                 expand: true,
-                cwd: "<%= pathConfig.rootDir %>preprocess/js/server",
+                cwd: "<%= pathConfig.rootDir %>preprocess/server",
                 src: "**/**",
                 dest: "<%= pathConfig.rootDir %>server"
             }
