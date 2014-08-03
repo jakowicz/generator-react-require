@@ -3,11 +3,23 @@ Yeoman-React-Bootstrap-Require
 
 # Introduction
 
-# How it works
+This is a Yeoman generator that can be used to create a simple todo application using React, RequireJS, Twitter Bootstrap, Node and Socket IO
+
 
 # Prerequisites
 
-1. Node/NPM
+1. Node/Npm
 2. Grunt installed globally
 
-# Install Instructions
+# Start the Node server
+
+```Bash
+node /path/to/yoreact/server/saveTodo.js;
+```
+
+# How to use
+
+1. Create a virtualhost to the www folder, check this loads in your browser
+2. Point as many tabs/browsers at your hostname as you like
+3. Use the form to add items to your todo list, you will see your changes appear on the other tabs in real time. Thanks to Socket IO.
+

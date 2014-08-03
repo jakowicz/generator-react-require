@@ -1,38 +1,43 @@
+// Dependencies
 var jf         = require('jsonfile');
-var express    = require("express");
 var bodyParser = require('body-parser');
+var app        = require("express")();
+var http       = require("http").Server(app);
+var io         = require('socket.io')(http);
 
-var filePath = "/Users/simon/sites/Yeoman-React-Bootstrap-Require/www/js/server/json/todo.json";
-var app      = express();
+// Config
+var filePath = "json/todo.json";
 
+// Allow x-www-form-urlencoded requests
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/", function(req, res) {
-    
-    if (typeof req.body.description !== "undefined") {
-
-        jf.readFile(filePath, function(err, obj) {
-            obj.push({ "description": req.body.description });
-
-            jf.writeFile(filePath, obj, function(err) {
-                console.log(err);
-            });
-        });
-        res.send("Put your hands in the air");
-
-    } else {
-        res.send("Bugger");
-    }
+// Allow cross origin resource sharing (CORS)
+app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
 });
 
-app.get("/json", function(req, res) {
+io.on('connection', function(socket) {
 
-    jf.readFile(filePath, function(err, obj) {
-        var returnData = obj;
+    // add new item to the todo list
+    socket.on("add", function(msg) {
+        jf.readFile(filePath, function(err, objs) {
+            
+            objs = (objs === null) ? [] : objs;
+            objs.push({ "description": msg });
+            jf.writeFile(filePath, objs);
+
+            io.sockets.emit("new-todo-list", objs);
+
+        });
     });
 
-    return returnData;
+    // On the initial connection, return the todo list
+    jf.readFile(filePath, function(err, objs) {
+        socket.emit("new-todo-list", objs);
+    });
+
 });
 
-
-app.listen(1337);
+http.listen(1337);

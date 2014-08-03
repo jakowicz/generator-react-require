@@ -5,11 +5,9 @@
 require(["../main"], function() {
     "use strict";
 
-    require(["React", "jquery"], function(React, $) {
+    require(["React", "jquery", "SocketIO"], function(React, $, io) {
 
-        var SERVER    = "http://127.0.0.1:1337/";
-        var JSON_SAVE = SERVER + "save";
-        var JSON_PATH = SERVER + "read";
+        var socket = io("http://localhost:1337/");
 
         var $descriptionBox = $("#todo-description");
         
@@ -21,40 +19,13 @@ require(["../main"], function() {
             TODO_LIST_PROP: "todoList",
 
             /**
-             * Get all todo descriptions from the server
+             * Create an object to set into the "todo" state
+             * @param {Array} data - An array of todo objects
              */
-            loadTodoFromServer: function() {
-                $.ajax({
-                    url: JSON_PATH,
-                    dataType: 'json',
-                    success: function(data) {
-                        this.setTodoState(data);
-                    }.bind(this),
-                    error: function(xhr, status, err) {
-                        console.error(err.toString());
-                    }.bind(this)
-                });
-            },
-
-            /**
-             * Submit a new todo to the server
-             * @param {String} newTodoDescription
-             */
-            handleCommentSubmit: function(newTodoDescription) {
-                
-                this.addNewTodo(newTodoDescription);
-
-                $.ajax({
-                    url: JSON_SAVE,
-                    type: 'POST',
-                    data: { description: newTodoDescription },
-                    success: function() {
-                        $descriptionBox.val("");
-                    }.bind(this),
-                    error: function(xhr, status, err) {
-                        console.error(err.toString());
-                    }.bind(this)
-                });
+            createTodoObject: function(data) {
+                var todoList = {};
+                todoList[this.TODO_LIST_PROP] = data;
+                return todoList;
             },
 
             /**
@@ -63,16 +34,6 @@ require(["../main"], function() {
              */
             getTodoState: function() {
                 return this.state.todoList;
-            },
-
-            /**
-             * Create an object to set into the "todo" state
-             * @param {Array} data - An array of todo objects
-             */
-            createTodoObject: function(data) {
-                var todoList = {};
-                todoList[this.TODO_LIST_PROP] = data;
-                return todoList;
             },
 
             /**
@@ -88,7 +49,6 @@ require(["../main"], function() {
              * @param {String} newTodoDescription
              */
             addNewTodo: function(newTodoDescription) {
-                console.log(this.getTodoState());
                 var todoList = this.getTodoState().concat({ "description" : newTodoDescription });
                 this.setTodoState(todoList);
             },
@@ -105,29 +65,30 @@ require(["../main"], function() {
              */
             componentDidMount: function() {
 
-                var reactThis = this;
                 $(function() {
                     $("form").on("submit", function(e) {
-                        reactThis.handleCommentSubmit($descriptionBox.val());
+                        socket.emit("add", $descriptionBox.val());
+                        $descriptionBox.val("");
                         return false;
                     });
                 });
 
-                this.loadTodoFromServer();
-                setInterval(this.loadTodoFromServer, 2000);
+                var reactThis = this;
+
+                socket.on("new-todo-list", function(objs) {
+                    console.log(objs);
+                    reactThis.setTodoState(objs);
+                });
+
             },
 
             /**
              * Render the table, each time the state is changed
              */
             render: function() {
-                var reactThis = this;
-
                 return (
                     React.DOM.table({className: "table table-striped todo-table"}, 
-                        React.DOM.thead(null, 
-                            React.DOM.tr(null, React.DOM.th(null, "Description"))
-                        ), 
+                        React.DOM.thead(null, React.DOM.tr(null, React.DOM.th(null, "Description"))), 
                         TodoList({todoList: this.state.todoList})
                     )
                 );
@@ -139,7 +100,6 @@ require(["../main"], function() {
          */
         var TodoList = React.createClass({displayName: 'TodoList',
             render: function() {
-
                 if (this.props.todoList.length > 0) {
                     var todoNodes = this.props.todoList.map(function(todo) {
                         return (TodoRow({description: todo.description}));

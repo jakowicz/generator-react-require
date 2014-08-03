@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         watch: {
             js: {
                 files: ["<%= pathConfig.rootDir %>preprocess/js/**/**"],
-                tasks: ["copy:js"],
+                tasks: ["copy:js", "copy:server"],
                 options: {
                     spawn: false
                 }
@@ -51,6 +51,12 @@ module.exports = function(grunt) {
                 cwd: "<%= pathConfig.rootDir %>preprocess/js",
                 src: "**/**",
                 dest: "<%= pathConfig.webDir %>js"
+            },
+            server: {
+                expand: true,
+                cwd: "<%= pathConfig.rootDir %>preprocess/js/server",
+                src: "**/**",
+                dest: "<%= pathConfig.rootDir %>server"
             }
         },
         compass: {

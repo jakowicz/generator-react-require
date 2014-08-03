@@ -1,13 +1,12 @@
 // Dependencies
 var jf         = require('jsonfile');
-var express    = require("express");
 var bodyParser = require('body-parser');
+var app        = require("express")();
+var http       = require("http").Server(app);
+var io         = require('socket.io')(http);
 
 // Config
 var filePath = "json/todo.json";
-
-// Start Express app
-var app      = express();
 
 // Allow x-www-form-urlencoded requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,31 +18,26 @@ app.all('/*', function(req, res, next) {
     next();
 });
 
-// Save a new todo
-app.post("/save", function(req, res) {
-    if (typeof req.body.description !== "undefined") {
+io.on('connection', function(socket) {
 
+    // add new item to the todo list
+    socket.on("add", function(msg) {
         jf.readFile(filePath, function(err, objs) {
+            
             objs = (objs === null) ? [] : objs;
-
-            objs.push({ "description": req.body.description });
-
+            objs.push({ "description": msg });
             jf.writeFile(filePath, objs);
+
+            io.sockets.emit("new-todo-list", objs);
+
         });
-
-        res.send("Put your hands in the air");
-
-    } else {
-        res.send("Bugger");
-    }
-});
-
-// Read todo JSON
-app.get("/read", function(req, res) {
-    jf.readFile(filePath, function(err, obj) {
-        res.send(obj);
     });
+
+    // On the initial connection, return the todo list
+    jf.readFile(filePath, function(err, objs) {
+        socket.emit("new-todo-list", objs);
+    });
+
 });
 
-// Set listening port
-app.listen(1337);
+http.listen(1337);
