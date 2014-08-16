@@ -13,6 +13,29 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
         pathConfig: pathConfig,
+        compass: {
+            dist: {
+                options: {
+                    sassDir: "<%= pathConfig.rootDir %>preprocess/scss",
+                    cssDir: "<%= pathConfig.webDir %>css",
+                    outputStyle: "compressed"
+                }
+            }
+        },
+        copy: {
+            js: {
+                expand: true,
+                cwd: "<%= pathConfig.rootDir %>preprocess/js",
+                src: "**/**",
+                dest: "<%= pathConfig.webDir %>js"
+            },
+            server: {
+                expand: true,
+                cwd: "<%= pathConfig.rootDir %>preprocess/server",
+                src: "**/**",
+                dest: "<%= pathConfig.rootDir %>server"
+            }
+        },
         uglify: {
             options: {
                 compress: true
@@ -21,7 +44,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: "preprocess/js",
+                        cwd: "www/js",
                         src: "**.js",
                         dest: "www/js"
                     }
@@ -65,29 +88,6 @@ module.exports = function(grunt) {
                 tasks: ["compass"]
             }
         },
-        copy: {
-            js: {
-                expand: true,
-                cwd: "<%= pathConfig.rootDir %>preprocess/js",
-                src: "**/**",
-                dest: "<%= pathConfig.webDir %>js"
-            },
-            server: {
-                expand: true,
-                cwd: "<%= pathConfig.rootDir %>preprocess/server",
-                src: "**/**",
-                dest: "<%= pathConfig.rootDir %>server"
-            }
-        },
-        compass: {
-            dist: {
-                options: {
-                    sassDir: "<%= pathConfig.rootDir %>preprocess/scss",
-                    cssDir: "<%= pathConfig.webDir %>css",
-                    outputStyle: "compressed"
-                }
-            }
-        },
         jshint: {
             all: {
                 src: [
@@ -102,9 +102,7 @@ module.exports = function(grunt) {
         },
         jscs: {
             src: [
-                "bower.json",
                 "Gruntfile.js",
-                "package.json",
                 "preprocess/js/**"
             ]
         },
@@ -130,9 +128,11 @@ module.exports = function(grunt) {
     });
 
     // Tasks
-    grunt.registerTask("default", [ "copy", "compass", "react", "karma" ]);
-    grunt.registerTask("compress", [ "uglify", "compass" ]);
+    grunt.registerTask("test", [ "karma" ]);
     grunt.registerTask("sca", [ "jshint", "jscs" ]);
-    grunt.registerTask("build", [ "jshint", "jscs", "karma" , "uglify:js", "react", "uglify:jsx", "compass", "copy" ]);
+    grunt.registerTask("compile", [ "copy", "react", "uglify", "compass"]);
+    grunt.registerTask("build", [ "test", "sca", "compile" ]);
+
+    grunt.registerTask("default", [ "compile"]);
 
 };
