@@ -19,11 +19,11 @@ define(["React"], function(React) {
 
     return function(socket) {
 
-        socket.on("connect_error", function(err) {
+        socket.on("connect_error", function() {
             React.renderComponent(ErrorMsg({error: ERROR_MSG}), ERROR_DOM);
         });
 
-        socket.on("connect", function(err) {
+        socket.on("connect", function() {
             React.unmountComponentAtNode(ERROR_DOM); 
         });
 

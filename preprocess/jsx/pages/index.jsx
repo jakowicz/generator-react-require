@@ -11,7 +11,7 @@ require(["../main"], function() {
 
         var socket = io("http://localhost:1337/");
 
-        ErrorBox(socket);
+        new ErrorBox(socket);
         
         /** Create a table to store the todo list */
         var TodoTable = React.createClass({

@@ -8,10 +8,14 @@ This is a Yeoman generator that can be used to create a simple todo application 
 
 # Prerequisites
 
-1. Node/Npm
-2. Grunt installed globally
+1. Node/Npm - http://nodejs.org/download/
+2. Grunt installed globally (npm install -g grunt-cli) - http://gruntjs.com/getting-started
+3. Compass (gem install compass) - http://compass-style.org/install/
+4. Sass (gem install sass) - http://sass-lang.com/install
 
 # Start the Node server
+
+The frontend will start a websocket with the Node server, this is used to sync updates between clients
 
 ```Bash
 cd /path/to/yoreact/server;

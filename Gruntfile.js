@@ -14,11 +14,24 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON("package.json"),
         pathConfig: pathConfig,
         uglify: {
-            build: {
+            options: {
+                compress: true
+            },
+            js: {
                 files: [
                     {
                         expand: true,
                         cwd: "preprocess/js",
+                        src: "**.js",
+                        dest: "www/js"
+                    }
+                ]
+            },
+            jsx: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: "www/js",
                         src: "**/**.js",
                         dest: "www/js"
                     }
@@ -107,13 +120,19 @@ module.exports = function(grunt) {
                     }
                 ]
             }
+        },
+        karma: {
+            unit: {
+                configFile: "karma.conf.js",
+                singleRun: true
+            }
         }
     });
 
     // Tasks
-    grunt.registerTask("default", [ "copy", "compass", "react" ]);
+    grunt.registerTask("default", [ "copy", "compass", "react", "karma" ]);
     grunt.registerTask("compress", [ "uglify", "compass" ]);
     grunt.registerTask("sca", [ "jshint", "jscs" ]);
-    grunt.registerTask("build", [ "jshint", "jscs", "uglify", "compass", "react", "copy" ]);
+    grunt.registerTask("build", [ "jshint", "jscs", "karma" , "uglify:js", "react", "uglify:jsx", "compass", "copy" ]);
 
 };
