@@ -3,17 +3,9 @@ var yeoman = require("yeoman-generator");
 module.exports = yeoman.generators.Base.extend({
 
     init: function() {
-
-        this.on("end", function() {
-            if (!this.options["skip-install"]) {
-                this.installDependencies({
-                    skipMessage: "Npm and Bower packages are already installed"
-                });
-            } else {
-                console.log("Npm and Bower install was skipped");
-            }
+        this.on('end', function() {
+            this.spawnCommand('grunt', ['compile']);
         });
-
     },
 
     copyFiles: function() {
@@ -38,5 +30,14 @@ module.exports = yeoman.generators.Base.extend({
         this.copy("karma.conf.js", "karma.conf.js");
         this.copy("package.json", "package.json");
 
+    },
+
+    end: function () {
+        if (!this.options["skip-install"]) {
+            this.installDependencies();
+        } else {
+            console.log("Npm and Bower install was skipped");
+        }
     }
+
 });
