@@ -138,11 +138,11 @@ module.exports = function(grunt) {
     });
 
     // Tasks
-    grunt.registerTask("test", [ "karma" ]);
-    grunt.registerTask("start", [ "connect" ]);
-    grunt.registerTask("sca", [ "jshint", "jscs" ]);
+    grunt.registerTask("test",    [ "karma" ]);
+    grunt.registerTask("start",   [ "connect" ]);
+    grunt.registerTask("sca",     [ "jshint", "jscs" ]);
     grunt.registerTask("compile", [ "copy", "react", "compass"]);
-    grunt.registerTask("build", [ "test", "sca", "compile", "uglify" ]);
+    grunt.registerTask("build",   [ "test", "sca", "compile", "uglify" ]);
 
     grunt.registerTask("default", [ "compile"]);
 
