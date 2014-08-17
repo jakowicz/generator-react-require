@@ -124,11 +124,22 @@ module.exports = function(grunt) {
                 configFile: "karma.conf.js",
                 singleRun: true
             }
+        },
+        connect: {
+            frontend: {
+                options: {
+                    port: 9000,
+                    hostname: "0.0.0.0",
+                    base: "www",
+                    keepalive: true
+                }
+            }
         }
     });
 
     // Tasks
     grunt.registerTask("test", [ "karma" ]);
+    grunt.registerTask("start", [ "connect" ]);
     grunt.registerTask("sca", [ "jshint", "jscs" ]);
     grunt.registerTask("compile", [ "copy", "react", "compass"]);
     grunt.registerTask("build", [ "test", "sca", "compile", "uglify" ]);

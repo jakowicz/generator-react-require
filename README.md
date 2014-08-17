@@ -12,17 +12,19 @@ This is a Yeoman generator that can be used to create a simple todo application 
 3. Compass (gem install compass) - http://compass-style.org/install/
 4. Sass (gem install sass) - http://sass-lang.com/install
 
-# Start the Node server
+# How to use
 
-The frontend will start a websocket with the Node server, this is used to sync updates between clients
+Start the server using Node
 
 ```Bash
 cd /path/to/yoreact/server;
 node server.js;
 ```
 
-# How to use
+Start the frontend using Grunt - Your terminal will tell you your point your browser at 0.0.0.0:9000 so see the application
 
-1. Create a virtualhost to the www folder, check this loads in your browser
-2. Point as many tabs/browsers at your hostname as you like
-3. Use the form to add items to your todo list, you will see your changes appear on the other tabs in real time. Thanks to Socket IO.
+```Bash
+grunt start
+```
+
+You can then point as many tabs/browsers at 0.0.0.0:9000 as you like. Use the form to add items to your todo list, you will see your changes appear on the other tabs in real time. Thanks to Socket IO.

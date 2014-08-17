@@ -30,6 +30,7 @@
     "grunt-cli": "^0.1.13"
   },
   "devDependencies": {
+    "grunt": "^0.4.5"
   },
   "engines": {
     "node": ">=0.10",
