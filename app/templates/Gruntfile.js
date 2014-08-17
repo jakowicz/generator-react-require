@@ -130,7 +130,7 @@ module.exports = function(grunt) {
                 options: {
                     port: 9000,
                     hostname: "0.0.0.0",
-                    base: "www",
+                    base: "<%= pathConfig.webDir %>",
                     keepalive: true
                 }
             }
