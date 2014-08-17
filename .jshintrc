@@ -10,7 +10,8 @@
 
     "globals" : {
         "define"    : false, // RequireJS
-        "requirejs" : false,  // RequireJS
-        "require"   : false  // RequireJS
+        "requirejs" : false, // RequireJS
+        "require"   : false, // RequireJS
+        "module"    : false  // Node
     }
 }
