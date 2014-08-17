@@ -12,7 +12,7 @@ require(["../main"], function() {
         var socket = io("http://localhost:1337/");
 
         new ErrorBox(socket);
-        
+
         /** Create a table to store the todo list */
         var TodoTable = React.createClass({
 
@@ -99,14 +99,14 @@ require(["../main"], function() {
         /** Create the todo list tbody data */
         var TodoList = React.createClass({
             render: function() {
-                if (this.props.todoList.length > 0) {
+                if (this.props.todoList !== null && this.props.todoList.length > 0) {
                     var todoNodes = this.props.todoList.map(function(todo) {
                         return (<TodoRow description={todo.description} />);
                     });
                 } else {
                     var todoNodes = <TodoRow description="There is nothing to do, grab yourself a beer!" />
                 }
-                return ( 
+                return (
                     <tbody>{todoNodes}</tbody>
                 );
             }
@@ -115,7 +115,7 @@ require(["../main"], function() {
         /** Create a new row for the todo list */
         var TodoRow = React.createClass({
             render: function() {
-                return (   
+                return (
                     <tr><td>{this.props.description}</td></tr>
                 );
             }

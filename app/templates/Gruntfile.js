@@ -130,8 +130,8 @@ module.exports = function(grunt) {
     // Tasks
     grunt.registerTask("test", [ "karma" ]);
     grunt.registerTask("sca", [ "jshint", "jscs" ]);
-    grunt.registerTask("compile", [ "copy", "react", "uglify", "compass"]);
-    grunt.registerTask("build", [ "test", "sca", "compile" ]);
+    grunt.registerTask("compile", [ "copy", "react", "compass"]);
+    grunt.registerTask("build", [ "test", "sca", "compile", "uglify" ]);
 
     grunt.registerTask("default", [ "compile"]);
 

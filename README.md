@@ -3,7 +3,7 @@ generator-react-require-socketio
 
 # Introduction
 
-This is a Yeoman generator that can be used to create a simple todo application using React/JSX, requireJS, Socket.IO, Express Jasmine, Sass and Bootstrap
+This is a Yeoman generator that can be used to create a simple todo application using React/JSX, requireJS, Socket.IO, Express Jasmine, Sass, Bootstrap, JSHint and JSCS.
 
 # Prerequisites
 
