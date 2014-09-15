@@ -17,14 +17,13 @@ This is a Yeoman generator that can be used to create a simple todo application 
 Start the server using Node
 
 ```Bash
-cd /path/to/yoreact/server;
-node server.js;
+grunt backend
 ```
 
 Start the frontend using Grunt - Your terminal will tell you your point your browser at 0.0.0.0:9000 so see the application
 
 ```Bash
-grunt start
+grunt frontend
 ```
 
 You can then point as many tabs/browsers at 0.0.0.0:9000 as you like. Use the form to add items to your todo list, you will see your changes appear on the other tabs in real time. Thanks to Socket IO.
