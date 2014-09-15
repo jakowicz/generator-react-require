@@ -8,7 +8,7 @@ This is a Yeoman generator that can be used to create a simple todo application 
 # Prerequisites
 
 1. Node/Npm - http://nodejs.org/download/
-2. Grunt installed globally (npm install -g grunt-cli) - http://gruntjs.com/getting-started
+2. Grunt installed globally (npm install -g grunt-cli) - http://gruntjs.com/getting-started (Grunt is also installed as a dev dependency if you'd rather use that)
 3. Compass (gem install compass) - http://compass-style.org/install/
 4. Sass (gem install sass) - http://sass-lang.com/install
 
