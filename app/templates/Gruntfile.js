@@ -134,16 +134,24 @@ module.exports = function(grunt) {
                     keepalive: true
                 }
             }
+        },
+        express: {
+            dev: {
+                options: {
+                    script: "server/server.js"
+                }
+            }
         }
     });
 
     // Tasks
-    grunt.registerTask("test",    [ "karma" ]);
-    grunt.registerTask("start",   [ "connect" ]);
-    grunt.registerTask("sca",     [ "jshint", "jscs" ]);
-    grunt.registerTask("compile", [ "copy", "react", "compass"]);
-    grunt.registerTask("build",   [ "test", "sca", "compile", "uglify" ]);
+    grunt.registerTask("test",     [ "karma" ]);
+    grunt.registerTask("frontend", [ "connect" ]);
+    grunt.registerTask("backend",  [ "express:dev" ]);
+    grunt.registerTask("sca",      [ "jshint", "jscs" ]);
+    grunt.registerTask("compile",  [ "copy", "react", "compass"]);
+    grunt.registerTask("build",    [ "test", "sca", "compile", "uglify" ]);
 
-    grunt.registerTask("default", [ "compile"]);
+    grunt.registerTask("default",  [ "compile"]);
 
 };

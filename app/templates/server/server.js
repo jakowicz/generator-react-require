@@ -6,7 +6,7 @@ var http       = require("http").Server(app);
 var io         = require('socket.io')(http);
 
 // Config
-var filePath = "json/todo.json";
+var filePath = "server/json/todo.json";
 
 // Allow x-www-form-urlencoded requests
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +23,7 @@ io.on('connection', function(socket) {
     // add new item to the todo list
     socket.on("add", function(msg) {
         jf.readFile(filePath, function(err, objs) {
-            
+
             objs = (objs === null) ? [] : objs;
             objs.push({ "description": msg });
             jf.writeFile(filePath, objs);

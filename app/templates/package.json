@@ -1,5 +1,5 @@
 {
-    "name": "Application built with generator-react-require",
+    "name": "Application-built-with-generator-react-require",
     "description": "This is an application built with the react-require Yeoman generator",
     "version": "0.0.0",
     "url": "https://www.example.com/",
@@ -34,6 +34,7 @@
         "grunt-jsx": "^0.1.8",
         "grunt-react": "^0.9.0",
         "grunt-karma": "^0.8.3",
+        "grunt-express-server": "^0.4.19",
         "karma": "^0.12.21",
         "karma-requirejs": "^0.2.2",
         "karma-jasmine": "^0.1.5",
