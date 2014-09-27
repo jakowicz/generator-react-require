@@ -1,7 +1,7 @@
 {
     "name": "generator-react-require",
     "description": "This is a Yeoman generator for a basic setup using React/JSX, requireJS, Socket.IO, Express Jasmine, Sass and Bootstrap",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "url": "https://www.jakowicz.com/",
     "repository": {
         "type": "git",
