@@ -1,11 +1,12 @@
 body {
     padding-top: 20px;
     padding-bottom: 20px;
+    background: #F2DFA0
 }
 
 .header {
     border-bottom: 1px solid #e5e5e5;
-    
+
     h3 {
         padding-bottom: 19px;
         margin-top: 0;
@@ -17,6 +18,10 @@ body {
 
 .todo-table {
     margin-top: 20px;
+    width: 100%;
+    td {
+        padding: 5px;
+    }
 }
 
 #error {
@@ -32,4 +37,8 @@ body {
     .container {
         max-width: 730px;
     }
+}
+
+tr {
+    border-bottom: 1px solid black;
 }

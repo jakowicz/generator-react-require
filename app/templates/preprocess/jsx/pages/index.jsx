@@ -86,9 +86,9 @@ require(["../main"], function() {
              */
             render: function() {
                 return (
-                    <table className="table table-striped todo-table">
+                    <table className="todo-table">
                         <thead>
-                            <tr><th>Description</th></tr>
+                            <tr><th>Damn I have a lot to do:</th></tr>
                         </thead>
                         <TodoList todoList={this.state.todoList} />
                     </table>
