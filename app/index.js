@@ -11,7 +11,6 @@ module.exports = yeoman.generators.Base.extend({
     copyFiles: function() {
 
         this.directory("build", "build");
-        this.directory("node_modules", "node_modules");
         this.directory("preprocess", "preprocess");
         this.directory("server", "server");
         this.directory("templates", "templates");
