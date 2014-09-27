@@ -6,7 +6,7 @@ var http       = require("http").Server(app);
 var io         = require('socket.io')(http);
 
 // Config
-var filePath = "json/todo.json";
+var filePath = "server/json/todo.json";
 
 // Allow x-www-form-urlencoded requests
 app.use(bodyParser.urlencoded({ extended: true }));

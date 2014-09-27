@@ -9,7 +9,7 @@ require(["../main"], function() {
 
         var $descriptionBox = $("#todo-description");
 
-        var socket = io("http://localhost:1337/");
+        var socket = io("http://0.0.0.0:1337/");
 
         new ErrorBox(socket);
 
