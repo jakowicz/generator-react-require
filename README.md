@@ -12,15 +12,36 @@ This is a Yeoman generator that can be used to create a simple todo application 
 3. Compass (gem install compass) - http://compass-style.org/install/
 4. Sass (gem install sass) - http://sass-lang.com/install
 
+# Install using Yeoman generator
+
+Install generator-react-require:
+
+```Bash
+npm install -g generator-react-require
+```
+
+Make a new directory, and cd into it:
+
+```Bash
+mkdir my-react-proj && cd $_
+```
+
+Execute yo react-require:
+
+```Bash
+yo react-require
+```
+
 # How to use
 
-Start the server using Node
+Start the Node Express server using Grunt - This is used for persistent storage of your todo list entries.
 
 ```Bash
 grunt backend
 ```
 
-Start the frontend using Grunt - Your terminal will tell you your point your browser at 0.0.0.0:9000 so see the application
+Start the frontend server using Grunt - This is the Javascript application.
+Your terminal will tell you to point your browser at 0.0.0.0:9000 so see the application.
 
 ```Bash
 grunt frontend
