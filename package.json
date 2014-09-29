@@ -12,7 +12,8 @@
         "RequireJS",
         "React",
         "Bootstrap",
-        "Grunt"
+        "Grunt",
+        "yeoman-generator"
     ],
     "preferGlobal": false,
     "author": "Simon Jakowicz <simon@jakowicz.com>",
