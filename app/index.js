@@ -20,7 +20,7 @@ module.exports = yeoman.generators.Base.extend({
         this.copy(".bowerrc", ".bowerrc");
         this.copy(".editorconfig", ".editorconfig");
         this.copy(".gitattributes", ".gitattributes");
-        this.copy(".gitignore", ".gitignore");
+        this.copy("gitignore", ".gitignore");
         this.copy(".jscsrc", ".jscsrc");
         this.copy(".jshintrc", ".jshintrc");
 
