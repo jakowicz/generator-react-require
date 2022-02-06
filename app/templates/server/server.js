@@ -26,7 +26,9 @@ io.on('connection', function(socket) {
 
             objs = (objs === null) ? [] : objs;
             objs.push({ "description": msg });
-            jf.writeFile(filePath, objs);
+            jf.writeFile(filePath, objs, function (err) {
+                if (err) console.error(err)
+            });
 
             io.sockets.emit("new-todo-list", objs);
 
